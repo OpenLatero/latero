@@ -28,22 +28,22 @@ namespace latero {
 // There doesn't seem to be any oscillations when looking at the button state every ms. A brief click seems to be in
 // the order of 130 ms. We're setting the deboucing to 5 ms just in case there is occasionally oscillations, but
 // it might not be necessary. More investigation needed.
-const boost::posix_time::time_duration TactileDisplay::debouncing_time = boost::posix_time::milliseconds(5);    
-    
+const boost::posix_time::time_duration TactileDisplay::debouncing_time = boost::posix_time::milliseconds(5);
+
 TactileDisplay::TactileDisplay() :
     sx_(8), sy_(8),
     pitchX_(1.2), pitchY_(1.6125), // was 1.4 in McGill version
 	contactorSizeX_(0.5), contactorSizeY_(1.4), // was 1.2 in McGill version
 	offset_(sx_, sy_),
-	fadeDuration_(boost::posix_time::milliseconds(500)),       
+	fadeDuration_(boost::posix_time::milliseconds(500)),
     displayedImg_(sx_, sy_),
-    button0_(debouncing_time), button1_(debouncing_time) 
+    button0_(debouncing_time), button1_(debouncing_time)
 {
 	Precompute();
 	fadeStart_ = boost::posix_time::microsec_clock::universal_time();
-	
+
 	handle_ = new latero_t;
-	int rv = latero_open(handle_, "192.168.1.220"); // TODO: find an elegant way to specify this
+	int rv = latero_open(handle_, "192.168.87.98"); // TODO: find an elegant way to specify this
 	if (rv < 0 )
 	{
 	    std::cout << "latero_open() failed\n";
@@ -78,7 +78,7 @@ TactileDisplay::TactileDisplay() :
 
 TactileDisplay::~TactileDisplay()
 {
-  if (handle_) 
+  if (handle_)
   {
     latero_close(handle_);
     delete handle_;
@@ -88,7 +88,7 @@ TactileDisplay::~TactileDisplay()
 
 int TactileDisplay::WriteFrame(const RangeImg &normFrame)
 {
-    boost::posix_time::time_duration t = boost::posix_time::microsec_clock::universal_time() - fadeStart_; 
+    boost::posix_time::time_duration t = boost::posix_time::microsec_clock::universal_time() - fadeStart_;
 	if (t > fadeDuration_)
 	{
 		displayedImg_ = normFrame;
@@ -112,7 +112,7 @@ int TactileDisplay::WriteFrame_(const RangeImg &normFrame)
 	{
 		// invert so that -1 is to the left and +1 is to the right
 		float norm = -1*normFrame.Get(i); // still necessary?
-		mvFrame[i] = norm; 
+		mvFrame[i] = norm;
 	}
 	int rv = WriteFrame_(mvFrame,normFrame.Size());
 	delete[] mvFrame;
@@ -122,22 +122,22 @@ int TactileDisplay::WriteFrame_(const RangeImg &normFrame)
 int TactileDisplay::WriteFrame_(double *arr, unsigned int size)
 {
     if (!handle_) return 0;
-  
+
     latero_pkt_t response;
     int rv = latero_write_pins(handle_, arr, &response);
     if ((response.hdr.type == PKT_TYPE_FULLR0) || (response.hdr.type == PKT_TYPE_FULLR1))
     {
-        if (response.fullr.iostatus == 0x0000) 
+        if (response.fullr.iostatus == 0x0000)
         {
             std::cout << "Warning !! The LateroIO status is invalid.\n The Latero I/O interface\nis likely to be unplugged or not powered on.\n";
-        } 
-        else 
+        }
+        else
         {
             latero_compute_position(handle_, response.fullr.quad, &x_, &y_, &theta_);
             bool b0 = !(response.fullr.dio_in & LATERO_BUTTON0_MASK);
             bool b1 = !(response.fullr.dio_in & LATERO_BUTTON1_MASK);
             button0_.UpdateState(b0);
-            button1_.UpdateState(b1);    
+            button1_.UpdateState(b1);
         }
     }
     return rv;
@@ -172,17 +172,17 @@ void TactileDisplay::Precompute()
 			p.y = j*GetPitchY() - ((GetFrameSizeY()-1)*GetPitchY()/2.0);
 			offset_.Set(i,j,p);
 		}
-	}	
+	}
 }
 
 
 double TactileDisplay::CheckUpdateRate(boost::posix_time::time_duration duration)
 {
-	if (!handle_) 
+	if (!handle_)
 		return 0;
-  
+
 	long n = 0;
-	latero_pkt_t response;	
+	latero_pkt_t response;
     boost::posix_time::ptime t0 = boost::posix_time::microsec_clock::universal_time();
 	while ((boost::posix_time::microsec_clock::universal_time() - t0) < duration)
 	{
@@ -192,7 +192,7 @@ double TactileDisplay::CheckUpdateRate(boost::posix_time::time_duration duration
 			n++;
 		}
 	}
-	
+
 	double rv = (double)n / (double)(boost::posix_time::microsec_clock::universal_time() - t0).total_seconds();
 	std::cout << "Latero Update Rate: " << rv << " Hz\n";
 	return rv;
@@ -210,11 +210,11 @@ void TactileDisplay::MonitorButtons(boost::posix_time::time_duration duration)
         t = boost::posix_time::microsec_clock::universal_time() - start;
         if ((response.hdr.type == PKT_TYPE_FULLR0) || (response.hdr.type == PKT_TYPE_FULLR1))
         {
-            if (response.fullr.iostatus == 0x0000) 
+            if (response.fullr.iostatus == 0x0000)
             {
                 std::cout << "Warning !! The LateroIO status is invalid.\n The Latero I/O interface\nis likely to be unplugged or not powered on.\n";
-            } 
-            else 
+            }
+            else
             {
                 bool b0 = !(response.fullr.dio_in & LATERO_BUTTON0_MASK);
                 bool b1 = !(response.fullr.dio_in & LATERO_BUTTON1_MASK);
@@ -227,7 +227,7 @@ void TactileDisplay::MonitorButtons(boost::posix_time::time_duration duration)
 void TactileDisplay::MonitorButtonsState(boost::posix_time::time_duration duration)
 {
     if (!handle_) return;
-    
+
     ButtonDebouncer button0(debouncing_time), button1(debouncing_time);
     boost::posix_time::ptime start = boost::posix_time::microsec_clock::universal_time();
     boost::posix_time::time_duration t = boost::posix_time::microsec_clock::universal_time() - start;
@@ -238,11 +238,11 @@ void TactileDisplay::MonitorButtonsState(boost::posix_time::time_duration durati
         t = boost::posix_time::microsec_clock::universal_time() - start;
         if ((response.hdr.type == PKT_TYPE_FULLR0) || (response.hdr.type == PKT_TYPE_FULLR1))
         {
-            if (response.fullr.iostatus == 0x0000) 
+            if (response.fullr.iostatus == 0x0000)
             {
                 std::cout << "Warning !! The LateroIO status is invalid.\n The Latero I/O interface\nis likely to be unplugged or not powered on.\n";
-            } 
-            else 
+            }
+            else
             {
                 bool b0 = !(response.fullr.dio_in & LATERO_BUTTON0_MASK);
                 bool b1 = !(response.fullr.dio_in & LATERO_BUTTON1_MASK);
@@ -255,6 +255,6 @@ void TactileDisplay::MonitorButtonsState(boost::posix_time::time_duration durati
             }
         }
     }
-}    
-    
+}
+
 }; // latero
