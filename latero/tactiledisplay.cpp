@@ -30,6 +30,8 @@ namespace latero {
 // it might not be necessary. More investigation needed.
 const boost::posix_time::time_duration TactileDisplay::debouncing_time = boost::posix_time::milliseconds(5);
 
+#define IP_ADDRESS "192.168.87.98"
+
 TactileDisplay::TactileDisplay() :
     sx_(8), sy_(8),
     pitchX_(1.2), pitchY_(1.6125), // was 1.4 in McGill version
@@ -43,7 +45,7 @@ TactileDisplay::TactileDisplay() :
 	fadeStart_ = boost::posix_time::microsec_clock::universal_time();
 
 	handle_ = new latero_t;
-	int rv = latero_open(handle_, "192.168.87.98"); // TODO: find an elegant way to specify this
+	int rv = latero_open(handle_, IP_ADDRESS); // TODO: find an elegant way to specify this
 	if (rv < 0 )
 	{
 	    std::cout << "latero_open() failed\n";
@@ -69,7 +71,7 @@ TactileDisplay::TactileDisplay() :
 
 		if (failed)
 		{
-		    std::cout << "cannot communicate with latero\n";
+		    std::cout << "cannot communicate with latero at " << IP_ADDRESS << "\n";
 		    latero_close(handle_);
 		    handle_ = NULL;
 		}
