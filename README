@@ -1,0 +1,20 @@
+latero
+----------
+Low level drivers for the Latero device.
+
+The Latero device is distributed by the not-for-profit organization Tactile Labs Inc. (http://tactilelabs.com).
+It was previously named STReSS and was originally designed at the McGill Haptics Laboratory (http://www.cim.mcgill.ca/~haptic/)
+Videos of the device in action, as well as a list of related publications, can be found here: http://www.cim.mcgill.ca/~haptic/laterotactile/dev/stress/
+Please refer to Vincent Levesque's 2009 Ph.D. thesis "Virtual Display of Tactile Graphics and Braille by Lateral Skin Deformation" for an in-depth report on the design, implementation and experimental evaluation of multiple tactile renders developped specifically for the STReSS device:  http://vlevesque.com/#Levesque-PhD
+
+The latero-demo program is part of a set of libraries and programs, all under the terms of the GNU General Public License or the GNU Lesser General Public. The complete list of related libraries and programs consists of:
+- latero: the low level driver for the Latero device (*this project*)
+- latero-gui: a gui that allows the individual testing of the actuators (piezo tips)
+- latero-graphics: a library for tactile rendering
+- latero-demo: a program that makes use of the latero-graphics library and showcases the Latero device's functionality
+
+All 4 projects are available on gitlab:
+- latero: https://gitlab.com/jerome.pasquero/latero
+- latero-gui: https://gitlab.com/jerome.pasquero/latero-gui
+- latero-graphics: https://gitlab.com/jerome.pasquero/latero-graphics
+- latero-demo: https://gitlab.com/jerome.pasquero/latero-demo

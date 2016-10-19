@@ -1,0 +1,36 @@
+The software for the Latero device is divided into libraries and programs. The latero library (this project) consists of the core low-level drivers to control the Latero device.
+
+This release of the sofware has been tested on  Mac OS X Maverick and Yosemite. Please follow these instructions. If you've successfully built and run this software on another platform, please list the steps you followed below.
+
+MAC OS X
+*********
+
+Step 1: Install MacPorts
+--------------------------
+If you already have MacPorts installed, skip to Step 2. Download Macports from https://www.macports.org/install.php. You might first need to install xcode and its command line developer tools.
+
+Step 2: Install dependencies
+-----------------------------
+Most of the necessary dependencies can be installed using MacPorts. In order to enable SVG support in Gdk::Pixbuf, the "librsvg" package must installed.
+>> port install cmake boost ImageMagick gtkmm libxmlxx2 librsvg
+
+Step 3: Download, build and install the audiere library
+---------------------------------------------------------
+There is no port for the audiere library.
+-- Download audiere (Unix Source Release 1.9.4): http://audiere.sourceforge.net/download.php
+-- Add the following line in the file audiere-1.9.4/src/utility.h:   #include <stdlib.h>
+   Without it, you won't be able to build audiere.
+>> ./configure
+>> make
+>> sudo make install
+
+Step 4: Install the latero library
+-----------------------------------
+You can use cmake to generate Xcode projects.
+>> cmake . -G Xcode
+>> xcodebuild -target latero
+>> sudo xcodebuild -target install
+
+If the installation is successful, the library liblatero.a will now be in /usr/local/lib/ and the include files in /usr/local/include/latero
+
+You can run the program latero-gui (another project) to test the library and latero device.
