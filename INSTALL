@@ -14,6 +14,7 @@ The following steps were tested on Ubuntu 16.04 LTS.
 >> sudo apt install cmake libboost-all-dev
 
 3. Compile and install the library:
+>> cmake .
 >> make
 >> sudo make install
 
