@@ -26,6 +26,7 @@ set(SRC_H
 	tactiledisplay.h
 	tactileimg.h
 	tactograph.h
+	buttondebouncer.h
 )
 
 set(SRC ${SRC_H} ${SRC_CPP})

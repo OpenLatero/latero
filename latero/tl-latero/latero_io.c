@@ -98,8 +98,6 @@ void packPacket(char* pktbuff, unsigned int length, latero_pkt_t* pkt)
 int unpackPacket(char* buf, unsigned int length, latero_pkt_t* pkt)
 {
 	int ii, pos;
-	uint16_t tmp;
-	uint32_t tmpl;
 
     /* TODO Make this test more robust and based on actual received packet format
             expected length. */
