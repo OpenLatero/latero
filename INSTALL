@@ -47,6 +47,12 @@ You can use cmake to generate Xcode projects.
 >> xcodebuild -target latero
 >> sudo xcodebuild -target install
 
+or
+
+>> cmake . -G "Unix Makefiles"
+>> make
+>> sudo make install
+
 If the installation is successful, the library liblatero.a will now be in /usr/local/lib/ and the include files in /usr/local/include/latero
 
 You can run the program latero-gui (another project) to test the library and latero device.
