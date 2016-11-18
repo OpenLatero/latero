@@ -136,6 +136,7 @@ int TactileDisplay::WriteFrame_(double *arr, unsigned int size)
         else
         {
             latero_compute_position(handle_, response.fullr.quad, &x_, &y_, &theta_);
+            theta_=0; // @TODO: hack - need to figure out why orientation is no longer reported corrected
             bool b0 = !(response.fullr.dio_in & LATERO_BUTTON0_MASK);
             bool b1 = !(response.fullr.dio_in & LATERO_BUTTON1_MASK);
             button0_.UpdateState(b0);
