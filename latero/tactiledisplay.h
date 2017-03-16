@@ -27,6 +27,8 @@
 #include <boost/date_time/posix_time/posix_time_types.hpp>
 #include "tl-latero/latero.h"
 #include "buttondebouncer.h"
+#include <stdint.h>
+
 
 namespace latero {
 
