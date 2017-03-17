@@ -56,3 +56,48 @@ or
 If the installation is successful, the library liblatero.a will now be in /usr/local/lib/ and the include files in /usr/local/include/latero
 
 You can run the program latero-gui (another project) to test the library and latero device.
+
+
+Cygwin (On windows or linux)
+********************
+Step 1: Install Cygwin
+--------------------------
+If you already have Cygwin installed, skip to Step 2. Download Cygwin from https://www.cygwin.com/. you can see how install it from https://cygwin.com/cygwin-ug-net/setup-net.html. After installing the cygwin, don't delete setup-x86.exe (or setup-x86_64.exe). It will be used for step 2.
+
+
+Step 2: Install dependency from cygwin installer
+----------------------------------------------------
+In order to bulld all of latero program, you need to install follow packages using setup-x86.exe (or setup-x86_64.exe)
+
+-- cmake, cmake-doc, cmake-gui
+-- wget, tar
+-- doxygen
+-- gcc-core, gcc-g++, gcc-objc, gcc-objc++
+-- libMagick-devel, libMagickC++, libMagickCore, libMagickWand
+-- libgtkmm2.4-devel, libgtkmm2.4-doc,libgtkmm2.4_1
+-- libxml++2.6-devel, libxml++2.6-_2, libxml2-devel, libxml2
+-- librsvg2-devel, librsvg2_2
+
+Step 3: Install boost library
+----------------------------------------------------
+
+>> wget 'https://sourceforge.net/projects/boost/files/boost/1.60.0/boost_1_60_0.tar.gz'
+>> tar xvzf boost_1.60_0.tar.gz
+>> cd ./boost_1_60_0
+>> ./bootstrap.sh
+>> ./b2
+>> cmake .
+>> make
+>> make install
+
+Step 4: Install latero
+----------------------------------------------------
+>> cd {direcry path to latero library}
+>> cmake .
+>> make
+>> sudo make install
+
+
+If the installation is successful, the library liblatero.a will now be in /usr/local/lib/ and the include files in /usr/local/include/latero
+
+You can run the program latero-gui (another project) to test the library and latero device.
