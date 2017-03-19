@@ -27,20 +27,10 @@ If you already have MacPorts installed, skip to Step 2. Download Macports from h
 
 Step 2: Install dependencies
 -----------------------------
-Most of the necessary dependencies can be installed using MacPorts. In order to enable SVG support in Gdk::Pixbuf, the "librsvg" package must installed.
->> port install cmake boost ImageMagick gtkmm libxmlxx2 librsvg
+Most of the necessary dependencies can be installed using MacPorts.
+>> port install cmake boost -no_static
 
-Step 3: Download, build and install the audiere library
----------------------------------------------------------
-There is no port for the audiere library.
--- Download audiere (Unix Source Release 1.9.4): http://audiere.sourceforge.net/download.php
--- Add the following line in the file audiere-1.9.4/src/utility.h:   #include <stdlib.h>
-   Without it, you won't be able to build audiere.
->> ./configure
->> make
->> sudo make install
-
-Step 4: Install the latero library
+Step 3: Install the latero library
 -----------------------------------
 You can use cmake to generate Xcode projects.
 >> cmake . -G Xcode
