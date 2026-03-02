@@ -1,9 +1,9 @@
-cmake_minimum_required (VERSION 2.4)
+cmake_minimum_required (VERSION 3.10...3.31)
 project (latero)
 
 set(Boost_USE_STATIC_LIBS   ON)
 set(Boost_USE_MULTITHREADED ON)
-find_package(Boost COMPONENTS date_time REQUIRED)
+find_package(Boost CONFIG COMPONENTS date_time REQUIRED)
 
 link_directories(${Boost_LIBRARY_DIRS})
 include_directories(${Boost_INCLUDE_DIRS})

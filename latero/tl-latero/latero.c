@@ -29,6 +29,7 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <assert.h>
+#include <unistd.h>
 
 #include "latero_io.h"
 #include "latero.h"
