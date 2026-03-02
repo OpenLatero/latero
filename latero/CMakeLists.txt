@@ -35,6 +35,7 @@ set(SRC_TL ${SRC_TL_H} ${SRC_TL_C})
 ####
 
 add_library (latero ${SRC} ${SRC_TL})
+target_link_libraries(latero PUBLIC Boost::date_time)
 
 ####
 #### INSTALL

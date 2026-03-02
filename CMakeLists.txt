@@ -5,9 +5,6 @@ set(Boost_USE_STATIC_LIBS   ON)
 set(Boost_USE_MULTITHREADED ON)
 find_package(Boost CONFIG COMPONENTS date_time REQUIRED)
 
-link_directories(${Boost_LIBRARY_DIRS})
-include_directories(${Boost_INCLUDE_DIRS})
-
 # todo: The DEPS_LDFLAGS and DEPS_CFLAGS strings separate the arguments with semicolons, which break
 # when passed to latero.pc. This replaces them with spaces. There must be a better way of doing this.
 # Adding -I in front of include dirs as well.
