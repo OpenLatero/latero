@@ -35,6 +35,7 @@ set(SRC_TL ${SRC_TL_H} ${SRC_TL_C})
 ####
 
 add_library (latero ${SRC} ${SRC_TL})
+add_library(latero::latero ALIAS latero)
 target_link_libraries(latero PUBLIC Boost::date_time)
 
 ####
@@ -43,11 +44,19 @@ target_link_libraries(latero PUBLIC Boost::date_time)
 
 #install library files to /usr/local/lib/
 INSTALL(TARGETS latero
+  EXPORT lateroTargets
   RUNTIME DESTINATION bin
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
+  INCLUDES DESTINATION include
 )
 
 # install header files to /usr/local/include/latero
 INSTALL(FILES ${SRC_H} DESTINATION include/latero)
 INSTALL(FILES ${SRC_TL_H} DESTINATION include/latero/tl-latero)
+
+install(EXPORT lateroTargets
+    FILE lateroTargets.cmake
+    NAMESPACE latero::
+    DESTINATION lib/cmake/latero
+)

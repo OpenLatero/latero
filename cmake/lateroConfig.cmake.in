@@ -1,0 +1,8 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+# Re-find Boost for consumers
+find_dependency(Boost REQUIRED COMPONENTS system date_time)
+
+include("${CMAKE_CURRENT_LIST_DIR}/lateroTargets.cmake")

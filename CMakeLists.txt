@@ -14,6 +14,18 @@ STRING(REPLACE ";" " -I" DEPS_CFLAGS_WSPACE "-I${Boost_INCLUDE_DIRS}" )
 # process subdirectories
 add_subdirectory (latero)
 
-# generate latero.pc file and install it for pkg-config
-configure_file(latero.pc.cmake ${CMAKE_CURRENT_BINARY_DIR}/latero.pc @ONLY)
-INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/latero.pc DESTINATION lib/pkgconfig)
+
+# Create and install cmake config file
+
+include(CMakePackageConfigHelpers)
+
+configure_package_config_file(
+    cmake/lateroConfig.cmake.in
+    ${CMAKE_CURRENT_BINARY_DIR}/lateroConfig.cmake
+    INSTALL_DESTINATION lib/cmake/latero
+)
+
+install(FILES
+    ${CMAKE_CURRENT_BINARY_DIR}/lateroConfig.cmake
+    DESTINATION lib/cmake/latero
+)
