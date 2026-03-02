@@ -34,7 +34,7 @@ Step 3: Install the latero library
 -----------------------------------
 >> mkdir build
 >> cd build
->> cmake .
+>> cmake ..
 >> make
 >> sudo make install
 
