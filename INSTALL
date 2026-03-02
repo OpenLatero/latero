@@ -28,18 +28,13 @@ If you already have MacPorts installed, skip to Step 2. Download Macports from h
 Step 2: Install dependencies
 -----------------------------
 Most of the necessary dependencies can be installed using MacPorts.
->> port install cmake boost -no_static
+>> port install cmake boost +universal
 
 Step 3: Install the latero library
 -----------------------------------
-You can use cmake to generate Xcode projects.
->> cmake . -G Xcode
->> xcodebuild -target latero
->> sudo xcodebuild -target install
-
-or
-
->> cmake . -G "Unix Makefiles"
+>> mkdir build
+>> cd build
+>> cmake .
 >> make
 >> sudo make install
 
