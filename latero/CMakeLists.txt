@@ -3,8 +3,6 @@
 #### SOURCE FILES
 ####
 
-cmake_minimum_required(VERSION 3.0)
-
 set(SRC_TL_C
 	tl-latero/latero.c
 	tl-latero/latero_io.c
