@@ -260,7 +260,7 @@ int latero_close(latero_t* latero)
 }
 
 
-void latero_set_pins_raw(latero_t* latero, char* blade_values)
+void latero_set_pins_raw(latero_t* latero, uint8_t* blade_values)
 {
     int ii;
     for (ii=0; ii<64; ii++)
@@ -270,11 +270,11 @@ void latero_set_pins_raw(latero_t* latero, char* blade_values)
 
 void latero_set_pins(latero_t* platero, double frame[LATERO_NB_PINS])
 {
-	unsigned char raw[LATERO_NB_PINS];
- 	int i;
-	for (i=0; i<LATERO_NB_PINS; ++i)
-		raw[i] = (0.5-0.5*frame[i]) * LATERO_MAX_RAW_PIN;
-	latero_set_pins_raw(platero, raw);
+    uint8_t raw[LATERO_NB_PINS];
+    int i;
+    for (i=0; i<LATERO_NB_PINS; ++i)
+        raw[i] = (0.5-0.5*frame[i]) * LATERO_MAX_RAW_PIN;
+    latero_set_pins_raw(platero, raw);
 }
 
 

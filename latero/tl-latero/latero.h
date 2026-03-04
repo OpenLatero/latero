@@ -105,7 +105,7 @@ int latero_is_open(latero_t* latero);
  * @warning not effective until next write to device
  * @TODO specify valid range and direction
  */
-void latero_set_pins_raw(latero_t* latero, char* values);
+void latero_set_pins_raw(latero_t* latero, uint8_t* values);
 
 
 /**
