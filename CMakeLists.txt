@@ -1,7 +1,6 @@
 cmake_minimum_required (VERSION 3.10...3.31)
 project (latero)
 
-set(Boost_USE_STATIC_LIBS   ON)
 set(Boost_USE_MULTITHREADED ON)
 find_package(Boost CONFIG COMPONENTS date_time REQUIRED)
 
