@@ -28,7 +28,9 @@ If you already have MacPorts installed, skip to Step 2. Download Macports from h
 Step 2: Install dependencies
 -----------------------------
 Most of the necessary dependencies can be installed using MacPorts.
->> port install cmake boost +universal
+### >> port install cmake boost +universal
+>> port install cmake boost
+
 
 Step 3: Install the latero library
 -----------------------------------
