@@ -18,8 +18,10 @@ The following steps were tested on Ubuntu 16.04 LTS.
 >> make
 >> sudo make install
 
-MAC OS X
-*********
+MacOS
+*****
+
+Tested on MacOS Tahoe 26.3.1.
 
 Step 1: Install MacPorts
 --------------------------
@@ -27,18 +29,13 @@ If you already have MacPorts installed, skip to Step 2. Download Macports from h
 
 Step 2: Install dependencies
 -----------------------------
-Most of the necessary dependencies can be installed using MacPorts.
-### >> port install cmake boost +universal
 >> port install cmake boost
 
-
-Step 3: Install the latero library
+Step 3: Build and install the latero library
 -----------------------------------
->> mkdir build
->> cd build
->> cmake ..
->> make
->> sudo make install
+>> cmake -B build
+>> cmake --build build
+>> sudo cmake --install build 
 
 If the installation is successful, the library liblatero.a will now be in /usr/local/lib/ and the include files in /usr/local/include/latero
 
