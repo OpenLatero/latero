@@ -33,7 +33,7 @@ Step 2: Install dependencies
 
 Step 3: Build and install the latero library
 -----------------------------------
->> cmake -B build
+>> cmake --preset default
 >> cmake --build build
 >> sudo cmake --install build 
 
