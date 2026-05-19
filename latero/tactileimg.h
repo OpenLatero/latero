@@ -19,8 +19,7 @@
 //
 // -----------------------------------------------------------
 
-#ifndef LATERORT_TACTILEIMG_H
-#define LATERORT_TACTILEIMG_H
+#pragma once
 
 #include "assert.h"
 #include <vector>
@@ -359,5 +358,3 @@ public:
 
 
 };
-
-#endif

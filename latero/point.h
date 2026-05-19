@@ -19,8 +19,7 @@
 //
 // -----------------------------------------------------------
 
-#ifndef LATERO1DOF_POINT_H
-#define LATERO1DOF_POINT_H
+#pragma once
 
 #include <math.h>
 
@@ -212,5 +211,3 @@ public:
 typedef pair_T<double> Point;
 
 } // namespace
-
-#endif

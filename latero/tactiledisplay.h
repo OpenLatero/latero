@@ -19,8 +19,7 @@
 //
 // -----------------------------------------------------------
 
-#ifndef LATERO_TACTILE_DISPLAY_H
-#define LATERO_TACTILE_DISPLAY_H
+#pragma once
 
 #include "tactileimg.h"
 #include "point.h"
@@ -126,5 +125,3 @@ private:
 
 
 }; // latero
-
-#endif

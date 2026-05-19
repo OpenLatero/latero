@@ -19,8 +19,7 @@
 //
 // -----------------------------------------------------------
 
-#ifndef LATERO_BUTTON_DEBOUNCER_H
-#define LATERO_BUTTON_DEBOUNCER_H
+#pragma once
 
 #include <queue>
 
@@ -80,5 +79,4 @@ protected:
     
 }; // latero
 
-#endif
 

@@ -20,8 +20,7 @@
 // -----------------------------------------------------------
 
 
-#ifndef LATERO_H
-#define LATERO_H
+#pragma once
 
 #ifdef __cplusplus
 extern "C" {
@@ -175,6 +174,4 @@ void latero_reset_position(latero_t *latero, uint32_t encoder_values[4]);
 
 #ifdef __cplusplus
 }
-#endif
-
 #endif

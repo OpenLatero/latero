@@ -20,8 +20,7 @@
 // -----------------------------------------------------------
 
 
-#ifndef LATERO_IO_H
-#define LATERO_IO_H
+#pragma once
 
 #ifdef __cplusplus
 extern "C" {
@@ -106,5 +105,3 @@ int unpackPacket(char* buf, unsigned int length, latero_pkt_t* pkt);
 #ifdef __cplusplus
 }
 #endif
-
-#endif //LATERO_H

@@ -19,8 +19,7 @@
 //
 // -----------------------------------------------------------
 
-#ifndef LATERO_TACTOGRAPH_H
-#define LATERO_TACTOGRAPH_H
+#pragma once
 
 #include "tactiledisplay.h"
 #include "point.h"
@@ -108,5 +107,3 @@ private:
 };
 
 } // namespace
-
-#endif
