@@ -48,19 +48,19 @@ The following steps were tested on Ubuntu 16.04 LTS.
 
 ### MacOS
 
-Tested on MacOS Tahoe 26.3.1.
+Last tested on MacOS Tahoe 26.5 with MacPorts 2.12.5.
 
-#### Step 1: Install MacPorts
+#### Install dependencies
 
-If you already have MacPorts installed, skip to Step 2. Download MacPorts from https://www.macports.org/install.php. You might first need to install Xcode and its command line developer tools.
-
-#### Step 2: Install dependencies
+The dependencies can be installed through [MacPorts](https://www.macports.org) with the following command:
 
 ```
-port install cmake boost
+sudo port install cmake boost
 ```
 
-#### Step 3: Build and install the latero library
+#### Build and install the latero library
+
+The latero library can be compiled and installed with the following commands:
 
 ```
 cmake --preset default
@@ -68,9 +68,11 @@ cmake --build build
 sudo cmake --install build
 ```
 
-If the installation is successful, the library `liblatero.a` will now be in `/usr/local/lib/` and the include files in `/usr/local/include/latero`.
+or in a single command:
 
-You can run the program `latero-gui` (another project) to test the library and Latero device.
+```
+cmake --preset default && cmake --build build && sudo cmake --install build
+```
 
 ### Cygwin (Windows or Linux)
 
