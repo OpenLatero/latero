@@ -21,10 +21,6 @@ See [OpenLatero.org](http://OpenLatero.org) for more information.
 
 ## Installation
 
-The software for the Latero device is divided into libraries and programs. The latero library (this project) consists of the core low-level drivers to control the Latero device.
-
-This release of the software has been tested on Mac OS X Maverick and Yosemite and Ubuntu 16.04 LTS. Please follow these instructions. If you've successfully built and run this software on another platform, please list the steps you followed below.
-
 ### Linux
 
 The following steps were tested on Ubuntu 16.04 LTS.
@@ -48,7 +44,7 @@ The following steps were tested on Ubuntu 16.04 LTS.
 
 ### MacOS
 
-Last tested on MacOS Tahoe 26.5 with MacPorts 2.12.5.
+Last tested in May 2026 on MacOS Tahoe 26.5 with MacPorts 2.12.5.
 
 #### Install dependencies
 
@@ -58,9 +54,9 @@ The dependencies can be installed through [MacPorts](https://www.macports.org) w
 sudo port install cmake boost
 ```
 
-#### Build and install the latero library
+#### Build and install the library
 
-The latero library can be compiled and installed with the following commands:
+The library can be compiled and installed with the following commands:
 
 ```
 cmake --preset default
