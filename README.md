@@ -7,7 +7,7 @@ It was previously named STReSS and was originally designed at the [McGill Haptic
 Videos of the device in action, as well as a list of related publications, can be found [here](http://www.cim.mcgill.ca/~haptic/laterotactile/dev/stress/).
 Please refer to Vincent Levesque's 2009 Ph.D. thesis ["Virtual Display of Tactile Graphics and Braille by Lateral Skin Deformation"](http://vlevesque.com/go/phd.html) for an in-depth report on the design, implementation and experimental evaluation of multiple tactile renderers developed specifically for the STReSS device.
 
-This software is part of a set of libraries and programs, all under the terms of the GNU General Public License or the GNU Lesser General Public License. A partial list of related libraries and programs:
+This software is part of a set of libraries and programs, all under the terms of the MIT License. A partial list of related libraries and programs:
 
 - **latero**: the low level driver for the Latero device
 - **latero-gui**: a GUI that allows the individual testing of the actuators
