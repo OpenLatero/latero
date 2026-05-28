@@ -4,30 +4,7 @@ Low level driver library for the Latero device. See [OpenLatero.org](http://Open
 
 ## Installation
 
-### Linux
-
-The following steps were tested on Ubuntu 16.04 LTS.
-
-1. Make sure that your system is up to date:
-   ```
-   sudo apt update
-   ```
-
-2. Install dependencies:
-   ```
-   sudo apt install cmake libboost-all-dev
-   ```
-
-3. Compile and install the library:
-   ```
-   cmake .
-   make
-   sudo make install
-   ```
-
 ### MacOS
-
-Last tested in May 2026 on MacOS Tahoe 26.5 with MacPorts 2.12.5.
 
 #### Install dependencies
 
@@ -52,6 +29,29 @@ or in a single command:
 ```
 cmake --preset default && cmake --build build && sudo cmake --install build
 ```
+
+### Linux
+
+The following steps were tested on Ubuntu 16.04 LTS.
+
+1. Make sure that your system is up to date:
+   ```
+   sudo apt update
+   ```
+
+2. Install dependencies:
+   ```
+   sudo apt install cmake libboost-all-dev
+   ```
+
+3. Compile and install the library:
+   ```
+   cmake .
+   make
+   sudo make install
+   ```
+
+
 
 ### Cygwin (Windows or Linux)
 
