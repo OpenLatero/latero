@@ -100,5 +100,4 @@ You can run the program `latero-gui` (another project) to test the library and L
 
 ## Authors
 
-- Vincent Levesque <vincent@vlevesque.com>
-- Jerome Pasquero <jerome.pasquero@gmail.com>
+OpenLatero is maintained by [Vincent Levesque](https://vlevesque.com) and his Haptic User Experience research group at [École de technologie supérieure](https://etsmtl.ca). It was originally developped as part of his PhD thesis at [McGill University](https://mcgill.ca) and prepared for release as as open source project by Jerome Pasquero (<jerome.pasquero@gmail.com>). Please see the git history for a full list of contributors.
