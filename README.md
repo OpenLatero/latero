@@ -30,6 +30,14 @@ or in a single command:
 cmake --preset default && cmake --build build && sudo cmake --install build
 ```
 
+#### Build the documentation
+
+Run this command to build and open the documentation:
+
+```
+cmake --build build --target doc && open docs/html/index.html
+```
+
 ### Linux
 
 The following steps were tested on Ubuntu 16.04 LTS.
