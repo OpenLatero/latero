@@ -6,6 +6,7 @@
 #include "tl-latero/latero.h"
 #include "buttondebouncer.h"
 #include <stdint.h>
+#include <chrono>
 
 
 namespace latero {
@@ -56,7 +57,7 @@ public:
 	ActuatorImg<Point> GetOffset() const { return offset_; }
 
 	/** compute update rate over a certain period of time */
-	double CheckUpdateRate(boost::posix_time::time_duration duration);
+	double CheckUpdateRate(int seconds = 60);
 
     inline bool GetButton0(bool &upEvent, bool &downEvent) const {
         upEvent = button0_.UpEvent();

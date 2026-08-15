@@ -158,15 +158,17 @@ void TactileDisplay::Precompute()
 }
 
 
-double TactileDisplay::CheckUpdateRate(boost::posix_time::time_duration duration)
+double TactileDisplay::CheckUpdateRate(int seconds)
 {
 	if (!handle_)
 		return 0;
 
+	std::cout << "Checking Latero update rate for " << seconds << " s... \n";
+
 	long n = 0;
 	latero_pkt_t response;
-    boost::posix_time::ptime t0 = boost::posix_time::microsec_clock::universal_time();
-	while ((boost::posix_time::microsec_clock::universal_time() - t0) < duration)
+	auto t0 = std::chrono::system_clock::now();
+	while ((std::chrono::system_clock::now() - t0) < std::chrono::seconds(seconds))
 	{
 		for (int i=0; i<500; ++i)
 		{
@@ -175,10 +177,12 @@ double TactileDisplay::CheckUpdateRate(boost::posix_time::time_duration duration
 		}
 	}
 
-	double rv = (double)n / (double)(boost::posix_time::microsec_clock::universal_time() - t0).total_seconds();
-	std::cout << "Latero Update Rate: " << rv << " Hz\n";
+	std::chrono::duration<double> elapsed = std::chrono::system_clock::now() - t0;
+	double rv = n / elapsed.count();
+	std::cout << rv << " Hz\n";
 	return rv;
 }
+
 
 void TactileDisplay::MonitorButtons(boost::posix_time::time_duration duration)
 {
