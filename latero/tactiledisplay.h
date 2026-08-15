@@ -2,7 +2,6 @@
 
 #include "tactileimg.h"
 #include "point.h"
-#include <boost/date_time/posix_time/posix_time_types.hpp>
 #include "tl-latero/latero.h"
 #include "buttondebouncer.h"
 #include <stdint.h>
@@ -71,8 +70,8 @@ public:
         return button1_.IsDown();
     }    
     
-    void MonitorButtons(boost::posix_time::time_duration duration);
-    void MonitorButtonsState(boost::posix_time::time_duration duration);
+    void MonitorButtons(double seconds);
+    void MonitorButtonsState(double seconds);
     
 protected:
 	void Precompute();
@@ -88,7 +87,7 @@ private:
 	const unsigned int sx_, sy_; // frame size
 	const float pitchX_, pitchY_; // in mm
 	const float contactorSizeX_, contactorSizeY_; // in mm
-    static const boost::posix_time::time_duration debouncing_time;
+    static const std::chrono::milliseconds debouncing_time;
 
 	// precomputed information
 	double width_;

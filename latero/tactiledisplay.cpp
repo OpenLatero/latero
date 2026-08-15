@@ -7,7 +7,7 @@ namespace latero {
 // There doesn't seem to be any oscillations when looking at the button state every ms. A brief click seems to be in
 // the order of 130 ms. We're setting the deboucing to 5 ms just in case there is occasionally oscillations, but
 // it might not be necessary. More investigation needed.
-const boost::posix_time::time_duration TactileDisplay::debouncing_time = boost::posix_time::milliseconds(5);
+const std::chrono::milliseconds TactileDisplay::debouncing_time = std::chrono::milliseconds(5);
 
 #define IP_ADDRESS "192.168.87.98"
 
@@ -184,16 +184,17 @@ double TactileDisplay::CheckUpdateRate(int seconds)
 }
 
 
-void TactileDisplay::MonitorButtons(boost::posix_time::time_duration duration)
+void TactileDisplay::MonitorButtons(double seconds)
 {
+	// TODO: Updated to std::chrono but could not be tested without a Tactograph.
     if (!handle_) return;
-	boost::posix_time::ptime start = boost::posix_time::microsec_clock::universal_time();
-    boost::posix_time::time_duration t = boost::posix_time::microsec_clock::universal_time() - start;
-    while (t < duration)
+	auto start = std::chrono::system_clock::now();
+    std::chrono::duration<double> t = std::chrono::system_clock::now() - start;
+    while (t.count() < seconds)
     {
         latero_pkt_t response;
         latero_write(handle_, &response);
-        t = boost::posix_time::microsec_clock::universal_time() - start;
+        t = std::chrono::system_clock::now() - start;
         if ((response.hdr.type == PKT_TYPE_FULLR0) || (response.hdr.type == PKT_TYPE_FULLR1))
         {
             if (response.fullr.iostatus == 0x0000)
@@ -204,24 +205,25 @@ void TactileDisplay::MonitorButtons(boost::posix_time::time_duration duration)
             {
                 bool b0 = !(response.fullr.dio_in & LATERO_BUTTON0_MASK);
                 bool b1 = !(response.fullr.dio_in & LATERO_BUTTON1_MASK);
-                std::cout << t.total_milliseconds() << " " << (b0?1:0) << " " << (b1?1:0) << "\n";
+                std::cout << (t.count()*1000.0) << " " << (b0?1:0) << " " << (b1?1:0) << "\n";
             }
         }
     }
 }
 
-void TactileDisplay::MonitorButtonsState(boost::posix_time::time_duration duration)
+void TactileDisplay::MonitorButtonsState(double seconds)
 {
+	// TODO: Updated to std::chrono but could not be tested without a Tactograph.
     if (!handle_) return;
 
     ButtonDebouncer button0(debouncing_time), button1(debouncing_time);
-    boost::posix_time::ptime start = boost::posix_time::microsec_clock::universal_time();
-    boost::posix_time::time_duration t = boost::posix_time::microsec_clock::universal_time() - start;
-    while (t < duration)
+    auto start = std::chrono::system_clock::now();
+    std::chrono::duration<double> t = std::chrono::system_clock::now() - start;
+    while (t.count() < seconds)
     {
         latero_pkt_t response;
         latero_write(handle_, &response);
-        t = boost::posix_time::microsec_clock::universal_time() - start;
+        t = std::chrono::system_clock::now() - start;
         if ((response.hdr.type == PKT_TYPE_FULLR0) || (response.hdr.type == PKT_TYPE_FULLR1))
         {
             if (response.fullr.iostatus == 0x0000)
