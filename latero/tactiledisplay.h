@@ -17,7 +17,7 @@ public:
 	TactileDisplay();
 	virtual ~TactileDisplay();
 	int WriteFrame(const RangeImg &normFrame);
-	void SetFadeDuration(boost::posix_time::time_duration duration);
+	void SetFadeDuration(int ms);
 	void BeginFade();
 
 	/** @return total number of actuators */
@@ -97,8 +97,8 @@ private:
 	ActuatorImg<Point> offset_;
 	int nbActuators_;
 
-	boost::posix_time::ptime fadeStart_;
-	boost::posix_time::time_duration fadeDuration_; // ms
+	std::chrono::system_clock::time_point fadeStart_;
+	std::chrono::milliseconds fadeDuration_;
 	RangeImg displayedImg_; // unless fading...
     ButtonDebouncer button0_, button1_;
 };

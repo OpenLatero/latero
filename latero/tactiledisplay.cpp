@@ -16,12 +16,12 @@ TactileDisplay::TactileDisplay() :
     pitchX_(1.2), pitchY_(1.6125), // was 1.4 in McGill version
 	contactorSizeX_(0.5), contactorSizeY_(1.4), // was 1.2 in McGill version
 	offset_(sx_, sy_),
-	fadeDuration_(boost::posix_time::milliseconds(500)),
+	fadeDuration_(500), // ms
     displayedImg_(sx_, sy_),
     button0_(debouncing_time), button1_(debouncing_time)
 {
 	Precompute();
-	fadeStart_ = boost::posix_time::microsec_clock::universal_time();
+	fadeStart_ = std::chrono::system_clock::now();
 
 	handle_ = new latero_t;
 	int rv = latero_open(handle_, IP_ADDRESS); // TODO: find an elegant way to specify this
@@ -69,7 +69,7 @@ TactileDisplay::~TactileDisplay()
 
 int TactileDisplay::WriteFrame(const RangeImg &normFrame)
 {
-    boost::posix_time::time_duration t = boost::posix_time::microsec_clock::universal_time() - fadeStart_;
+	auto t = std::chrono::system_clock::now() - fadeStart_;
 	if (t > fadeDuration_)
 	{
 		displayedImg_ = normFrame;
@@ -77,7 +77,7 @@ int TactileDisplay::WriteFrame(const RangeImg &normFrame)
 	}
 	else
 	{
-		double ratio = (double)t.total_microseconds() / (double)fadeDuration_.total_microseconds();
+		double ratio = std::chrono::duration<double>(t) / std::chrono::duration<double>(fadeDuration_);
 		RangeImg img(sx_, sy_);
 		for (uint i=0; i<img.Size(); ++i)
 			img.Set(i, (1.0-ratio)*displayedImg_.Get(i) + ratio*normFrame.Get(i));
@@ -125,15 +125,15 @@ int TactileDisplay::WriteFrame_(double *arr, unsigned int size)
     return rv;
 }
 
-void TactileDisplay::SetFadeDuration(boost::posix_time::time_duration duration)
+void TactileDisplay::SetFadeDuration(int ms)
 {
-	fadeDuration_ = duration;
+	fadeDuration_ = std::chrono::milliseconds(ms);
 }
 
 void TactileDisplay::BeginFade()
 {
 	// todo: handle repeated calls...?
-	fadeStart_ = boost::posix_time::microsec_clock::universal_time();
+	fadeStart_ = std::chrono::system_clock::now();
 }
 
 void TactileDisplay::Precompute()
