@@ -1,9 +1,6 @@
 cmake_minimum_required (VERSION 3.21...3.31)
 project (latero)
 
-set(Boost_USE_MULTITHREADED ON)
-find_package(Boost CONFIG COMPONENTS date_time REQUIRED)
-
 # process subdirectories
 add_subdirectory (latero)
 

@@ -13,7 +13,7 @@ Automatically-generated documentation for the latest version on GitHub can be fo
 The dependencies can be installed through [MacPorts](https://www.macports.org) with the following command:
 
 ```
-sudo port install cmake boost
+sudo port install cmake
 ```
 
 #### Build and install the library
