@@ -13,8 +13,15 @@ Automatically-generated documentation for the latest version on GitHub can be fo
 The dependencies can be installed through [MacPorts](https://www.macports.org) with the following command:
 
 ```
-sudo port install cmake
+sudo port install cmake doxygen
 ```
+
+or through [Homebrew](https://brew.sh/) with the following command:
+
+```
+brew install cmake doxygen
+```
+
 
 #### Build and install the library
 
