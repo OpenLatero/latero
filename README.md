@@ -6,11 +6,11 @@ Automatically-generated documentation for the latest version on GitHub can be fo
 
 ## Installation
 
-### MacOS
+### MacOS / Linux
 
 #### Install dependencies
 
-The dependencies can be installed through [MacPorts](https://www.macports.org) with the following command:
+On MacOS, the dependencies can be installed through [MacPorts](https://www.macports.org) with the following command:
 
 ```
 sudo port install cmake doxygen
@@ -22,6 +22,11 @@ or through [Homebrew](https://brew.sh/) with the following command:
 brew install cmake doxygen
 ```
 
+On Linux, the dependencies can be installed through:
+
+```
+sudo apt install cmake doxygen
+```
 
 #### Build and install the library
 
@@ -46,29 +51,6 @@ Run this command to build and open the documentation:
 ```
 cmake --build build --target doc && open docs/html/index.html
 ```
-
-### Linux
-
-The following steps were tested on Ubuntu 16.04 LTS.
-
-1. Make sure that your system is up to date:
-   ```
-   sudo apt update
-   ```
-
-2. Install dependencies:
-   ```
-   sudo apt install cmake libboost-all-dev
-   ```
-
-3. Compile and install the library:
-   ```
-   cmake .
-   make
-   sudo make install
-   ```
-
-
 
 ### Cygwin (Windows or Linux)
 
