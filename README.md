@@ -97,6 +97,16 @@ If the installation is successful, the library `liblatero.a` will now be in `/us
 
 You can run the program `latero-gui` (another project) to test the library and Latero device.
 
+## Examples
+
+The [examples](examples) folder contains example programs using the library. Each one is built
+separately, against the installed library; see [examples/README.md](examples/README.md).
+
+## License
+
+The library is released under the [MIT License](LICENSE). The code in the [examples](examples) folder is
+released into the public domain under the [Unlicense](examples/LICENSE).
+
 ## Authors
 
 OpenLatero is maintained by [Vincent Levesque](https://vlevesque.com) and his Haptic User Experience research group at [École de technologie supérieure](https://etsmtl.ca). It was originally developped as part of his PhD thesis at [McGill University](https://mcgill.ca) and prepared for release as as open source project by Jerome Pasquero (<jerome.pasquero@gmail.com>). Please see the git history for a full list of contributors.

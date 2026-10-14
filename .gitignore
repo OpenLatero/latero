@@ -1,4 +1,5 @@
 
 /build
+/examples/*/build
 /.vscode
 /docs/html
