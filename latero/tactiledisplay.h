@@ -7,11 +7,6 @@
 #include <stdint.h>
 #include <chrono>
 
-#ifdef _WIN32
-typedef unsigned int uint; /* provided by <sys/types.h> on Linux and macOS, but not on Windows */
-#endif
-
-
 namespace latero {
 
 class TactileDisplay
@@ -24,13 +19,13 @@ public:
 	void BeginFade();
 
 	/** @return total number of actuators */
-	inline uint GetNbActuators() const { return nbActuators_; }
+	inline unsigned int GetNbActuators() const { return nbActuators_; }
 
 	/** @return number of actuators in X */
-	inline uint GetFrameSizeX() const { return sx_; }
+	inline unsigned int GetFrameSizeX() const { return sx_; }
 
 	/** @return number of actuators in Y */
-	inline uint GetFrameSizeY() const { return sy_; }
+	inline unsigned int GetFrameSizeY() const { return sy_; }
 
 	/** @return distance between actuator centers in X (mm) */
 	inline double GetPitchX() const { return pitchX_; }
@@ -54,7 +49,7 @@ public:
 	inline double GetRadius() const { return radius_; }
 
 	/** @return Offset of actuator (i,j) with respect to the center of the display */
-	inline Point GetActuatorOffset(uint i, uint j) const { return offset_.Get(i,j); }
+	inline Point GetActuatorOffset(unsigned int i, unsigned int j) const { return offset_.Get(i,j); }
 
 	/** @return Offset of all actuators with respect to the center of the display */
 	ActuatorImg<Point> GetOffset() const { return offset_; }

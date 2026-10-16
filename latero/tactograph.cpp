@@ -72,9 +72,9 @@ ActuatorImg<Point> Tactograph::GetActuatorPositions(Point centerPos, double angl
 
 	double costheta = cos(angle);
 	double sintheta = sin(angle);
-	for (uint i=0; i<GetFrameSizeX(); i++)
+	for (unsigned int i=0; i<GetFrameSizeX(); i++)
 	{ 
-		for (uint j=0; j<GetFrameSizeY(); j++)
+		for (unsigned int j=0; j<GetFrameSizeY(); j++)
 		{ 
 			Point p = GetActuatorOffset(i,j);
 			Point p_rotated;

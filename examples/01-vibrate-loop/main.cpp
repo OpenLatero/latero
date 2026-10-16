@@ -42,8 +42,8 @@ int main(int argc, char* argv[])
 	while (currentTime < std::chrono::minutes(1))
 	{
 		// Query the device for the size of a frame (number of pins).
-		uint sx = dev.GetFrameSizeX();
-		uint sy = dev.GetFrameSizeY();
+		unsigned int sx = dev.GetFrameSizeX();
+		unsigned int sy = dev.GetFrameSizeY();
 		
 		// Create a tactile image that will specify the position of each pin. The RangeImg
 		// uses a value between -1.0 (left) and +1.0 (right) to specify the position of a pin.
@@ -53,9 +53,9 @@ int main(int argc, char* argv[])
 		// For each pin, call a function that will compute the position of the pin based on the
 		// pin (x, y) and the current time.
 		double currentTimeSeconds = std::chrono::duration<double>(currentTime).count();
-		for (uint y=0; y<sy; ++y)
+		for (unsigned int y=0; y<sy; ++y)
 		{
-			for (uint x=0; x<sx; ++x)
+			for (unsigned int x=0; x<sx; ++x)
 			{
 				double v = ComputePinPosition(x, y, currentTimeSeconds);
 				img.Set(x,y,v);

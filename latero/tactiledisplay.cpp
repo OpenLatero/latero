@@ -79,7 +79,7 @@ int TactileDisplay::WriteFrame(const RangeImg &normFrame)
 	{
 		double ratio = std::chrono::duration<double>(t) / std::chrono::duration<double>(fadeDuration_);
 		RangeImg img(sx_, sy_);
-		for (uint i=0; i<img.Size(); ++i)
+		for (unsigned int i=0; i<img.Size(); ++i)
 			img.Set(i, (1.0-ratio)*displayedImg_.Get(i) + ratio*normFrame.Get(i));
 		return WriteFrame_(img);
 	}
@@ -89,7 +89,7 @@ int TactileDisplay::WriteFrame(const RangeImg &normFrame)
 int TactileDisplay::WriteFrame_(const RangeImg &normFrame)
 {
 	double* mvFrame = new double[normFrame.Size()]; // not very good in realtime
-	for (uint i=0; i<normFrame.Size(); ++i)
+	for (unsigned int i=0; i<normFrame.Size(); ++i)
 	{
 		// invert so that -1 is to the left and +1 is to the right
 		float norm = -1*normFrame.Get(i); // still necessary?
