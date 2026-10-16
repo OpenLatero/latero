@@ -1,7 +1,8 @@
 #include <string.h>
 #ifdef _WIN32
-#include "latero.h" /* includes winsock2.h, which must come before ws2tcpip.h */
+#include <winsock2.h>
 #include <ws2tcpip.h>
+#include <stddef.h>
 #include <math.h>
 #include <stdio.h>
 #include <sys/types.h>
@@ -20,6 +21,14 @@
 
 #include "latero_io.h"
 #include "latero.h"
+
+#ifdef _WIN32
+/* latero.h declares these fields without winsock2.h; check that they match the real types */
+_Static_assert(sizeof(((latero_t*)0)->udp_socket) == sizeof(SOCKET), "udp_socket must match SOCKET");
+_Static_assert(sizeof(((latero_t*)0)->si_server) == sizeof(struct sockaddr_in), "si_server must match struct sockaddr_in");
+_Static_assert(offsetof(latero_t, si_server) % _Alignof(struct sockaddr_in) == 0, "si_server must be aligned like struct sockaddr_in");
+#define LATERO_SERVER_ADDR(latero) ((struct sockaddr_in*)&(latero)->si_server)
+#endif
 
 #define TIMEOUTS_ENABLED
 
@@ -226,9 +235,15 @@ int latero_open( latero_t* latero, const char* str_ip_address )
 #endif
 
   memset( (char *)&latero->si_server, 0, sizeof(struct sockaddr_in));
+#ifdef _WIN32
+  LATERO_SERVER_ADDR(latero)->sin_family = AF_INET;
+  LATERO_SERVER_ADDR(latero)->sin_port = htons(PORT);
+  LATERO_SERVER_ADDR(latero)->sin_addr.s_addr = inet_addr(str_ip_address);
+#else
   latero->si_server.sin_family = AF_INET;
   latero->si_server.sin_port = htons(PORT);
   latero->si_server.sin_addr.s_addr = inet_addr(str_ip_address);
+#endif
 
   memset( (char *)latero->pktbuff, 0xFF, BUFLEN );
   memset( (char *)latero->rspbuff, 0xFF, BUFLEN );

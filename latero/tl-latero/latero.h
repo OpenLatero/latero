@@ -5,10 +5,9 @@ extern "C" {
 #endif
 
 #ifdef _WIN32
-#ifndef NOMINMAX
-#define NOMINMAX /* keep windows.h from defining min/max macros that break std::min/std::max */
-#endif
-#include <winsock2.h>
+/* winsock2.h is kept out of this public header: it includes windows.h, whose macros (ERROR, IN,
+   DIFFERENCE, min, max...) clash with other libraries such as gtkmm. See latero_t below. */
+#include <stdint.h>
 #else
 #include <netinet/in.h>
 #endif
@@ -47,11 +46,13 @@ typedef struct
 {
   char   initialized;
 #ifdef _WIN32
-  SOCKET udp_socket;
+  /* Same layout as SOCKET and struct sockaddr_in, which latero.c uses (and checks at compile time) */
+  uintptr_t udp_socket;
+  struct { uint32_t storage[4]; } si_server;
 #else
   int    udp_socket;
-#endif
   struct sockaddr_in si_server;
+#endif
   char   pktbuff[BUFLEN];
   char   rspbuff[BUFLEN];
   uint16_t dac[4];
