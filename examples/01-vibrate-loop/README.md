@@ -2,7 +2,7 @@
 
 This example shows the use of the Latero library to make the pins of the Latero tactile display vibrate. The pins vibrate at 1 Hz with adjacent rows having a different phase.
 
-## MacOS / Linux
+## MacOS / Linux / Windows
 
 #### Install OpenLatero libraries
 

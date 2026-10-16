@@ -7,6 +7,10 @@
 #include <stdint.h>
 #include <chrono>
 
+#ifdef _WIN32
+typedef unsigned int uint; /* provided by <sys/types.h> on Linux and macOS, but not on Windows */
+#endif
+
 
 namespace latero {
 

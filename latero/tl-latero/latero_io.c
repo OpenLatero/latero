@@ -1,12 +1,17 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#ifdef _WIN32
+#include <winsock2.h>
+#include <stdio.h>
+#else
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <unistd.h>
+#endif
 
 #include "latero_io.h"
 

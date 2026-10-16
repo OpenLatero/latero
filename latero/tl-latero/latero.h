@@ -4,7 +4,14 @@
 extern "C" {
 #endif
 
+#ifdef _WIN32
+#ifndef NOMINMAX
+#define NOMINMAX /* keep windows.h from defining min/max macros that break std::min/std::max */
+#endif
+#include <winsock2.h>
+#else
 #include <netinet/in.h>
+#endif
 #include "latero_io.h"
 
 #define LATERO_NB_PINS_X 8
@@ -39,7 +46,11 @@ extern "C" {
 typedef struct
 {
   char   initialized;
+#ifdef _WIN32
+  SOCKET udp_socket;
+#else
   int    udp_socket;
+#endif
   struct sockaddr_in si_server;
   char   pktbuff[BUFLEN];
   char   rspbuff[BUFLEN];

@@ -1,4 +1,12 @@
 #include <string.h>
+#ifdef _WIN32
+#include "latero.h" /* includes winsock2.h, which must come before ws2tcpip.h */
+#include <ws2tcpip.h>
+#include <math.h>
+#include <stdio.h>
+#include <sys/types.h>
+#include <assert.h>
+#else
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <sys/time.h>
@@ -8,6 +16,7 @@
 #include <sys/types.h>
 #include <assert.h>
 #include <unistd.h>
+#endif
 
 #include "latero_io.h"
 #include "latero.h"
@@ -62,7 +71,11 @@ int readDIODir( latero_t* latero, uint16_t *value)
 }
 
 
+#ifdef _WIN32
+int socketIsReadable( SOCKET sock_desc, int ms_timeout ) {
+#else
 int socketIsReadable( int sock_desc, int ms_timeout ) {
+#endif
 
     fd_set socketReadSet;
 
@@ -115,8 +128,13 @@ int exchange_packet(latero_t* latero, latero_pkt_t* to_send, latero_pkt_t* respo
 #ifdef TIMEOUTS_ENABLED
   if( socketIsReadable( latero->udp_socket, 5 ) ) {
 #endif
+#ifdef _WIN32
+    numbytes = recvfrom( latero->udp_socket, latero->rspbuff, BUFLEN, 0,
+                         (struct sockaddr*) &si_other, &slen );
+#else
     numbytes = recvfrom( latero->udp_socket, &latero->rspbuff, BUFLEN, 0,
                          (struct sockaddr*) &si_other, &slen );
+#endif
     if ( numbytes < 0 ) {
       fprintf(stderr,"Error receiving response\n");
       return(-1);
@@ -201,6 +219,12 @@ int latero_open( latero_t* latero, const char* str_ip_address )
 
   latero->initialized = 0;
 
+#ifdef _WIN32
+  WSADATA wsa_data;
+  if ( WSAStartup( MAKEWORD(2,2), &wsa_data ) != 0 )
+    return(-1);
+#endif
+
   memset( (char *)&latero->si_server, 0, sizeof(struct sockaddr_in));
   latero->si_server.sin_family = AF_INET;
   latero->si_server.sin_port = htons(PORT);
@@ -218,8 +242,16 @@ int latero_open( latero_t* latero, const char* str_ip_address )
   latero->dio_out = 0x1000; /* Now only one LED will be on */
 
   latero->udp_socket = socket( AF_INET, SOCK_DGRAM, IPPROTO_UDP );
+#ifdef _WIN32
+  if (latero->udp_socket == INVALID_SOCKET)
+  {
+    WSACleanup();
+    return(-1);
+  }
+#else
   if (latero->udp_socket == -1)
     return(-1);
+#endif
 
   latero->initialized = 1;
   return(0);
@@ -229,11 +261,21 @@ int latero_open( latero_t* latero, const char* str_ip_address )
 int latero_close(latero_t* latero)
 {
 	latero->initialized = 0;
+#ifdef _WIN32
+    if ( closesocket( latero->udp_socket ) != 0  )
+    {
+      fprintf(stderr,"Closing failed on socket\n");
+      WSACleanup();
+      return(-1);
+    }
+    WSACleanup();
+#else
     if ( close( latero->udp_socket ) != 0  )
     {
       fprintf(stderr,"Closing failed on socket\n");
       return(-1);
     }
+#endif
     return( 0 );
 }
 

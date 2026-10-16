@@ -37,6 +37,11 @@ set(SRC_TL ${SRC_TL_H} ${SRC_TL_C})
 add_library (latero ${SRC} ${SRC_TL})
 add_library(latero::latero ALIAS latero)
 
+# Winsock, for the UDP connection to the Latero
+if (WIN32)
+  target_link_libraries(latero PUBLIC ws2_32)
+endif()
+
 ####
 #### INSTALL
 ####

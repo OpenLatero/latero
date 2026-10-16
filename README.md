@@ -52,50 +52,43 @@ Run this command to build and open the documentation:
 cmake --build build --target doc && open docs/html/index.html
 ```
 
-### Cygwin (Windows or Linux)
+### Windows
 
-#### Step 1: Install Cygwin
+On Windows, the library is built natively with the GCC toolchain of [MSYS2](https://www.msys2.org).
 
-If you already have Cygwin installed, skip to Step 2. Download Cygwin from https://www.cygwin.com/. You can see how to install it from https://cygwin.com/cygwin-ug-net/setup-net.html. After installing Cygwin, don't delete `setup-x86.exe` (or `setup-x86_64.exe`) — it will be used for Step 2.
+#### Install dependencies
 
-#### Step 2: Install dependencies from the Cygwin installer
-
-In order to build all of the latero programs, install the following packages using `setup-x86.exe` (or `setup-x86_64.exe`):
-
-- cmake, cmake-doc, cmake-gui
-- wget, tar
-- doxygen
-- gcc-core, gcc-g++, gcc-objc, gcc-objc++
-- libMagick-devel, libMagickC++, libMagickCore, libMagickWand
-- libgtkmm2.4-devel, libgtkmm2.4-doc, libgtkmm2.4_1
-- libxml++2.6-devel, libxml++2.6_2, libxml2-devel, libxml2
-- librsvg2-devel, librsvg2_2
-
-#### Step 3: Install the Boost library
+Install MSYS2, then open the **MSYS2 UCRT64** shell and install the dependencies with the following command:
 
 ```
-wget 'https://sourceforge.net/projects/boost/files/boost/1.60.0/boost_1_60_0.tar.gz'
-tar xvzf boost_1_60_0.tar.gz
-cd ./boost_1_60_0
-./bootstrap.sh
-./b2
-cmake .
-make
-make install
+pacman -S --needed mingw-w64-ucrt-x86_64-toolchain mingw-w64-ucrt-x86_64-cmake mingw-w64-ucrt-x86_64-ninja mingw-w64-ucrt-x86_64-doxygen
 ```
 
-#### Step 4: Install latero
+Run all the commands below from the same UCRT64 shell.
+
+#### Build and install the library
+
+The library can be compiled and installed into the MSYS2 environment (no `sudo` needed) with the following commands:
 
 ```
-cd {directory path to latero library}
-cmake .
-make
-sudo make install
+cmake --preset default
+cmake --build build
+cmake --install build --prefix /ucrt64
 ```
 
-If the installation is successful, the library `liblatero.a` will now be in `/usr/local/lib/` and the include files in `/usr/local/include/latero`.
+or in a single command:
 
-You can run the program `latero-gui` (another project) to test the library and Latero device.
+```
+cmake --preset default && cmake --build build && cmake --install build --prefix /ucrt64
+```
+
+#### Build the documentation
+
+Run this command to build the documentation, then open `docs/html/index.html` in a browser:
+
+```
+cmake --build build --target doc
+```
 
 ## Examples
 
