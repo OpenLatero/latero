@@ -6,26 +6,25 @@ Automatically-generated documentation for the latest version on GitHub can be fo
 
 ## Installation
 
-### MacOS / Linux
+Expand the instructions for your platform.
+
+<details>
+<summary><b>macOS</b></summary>
+
+_Last tested on macOS 27.0._
 
 #### Install dependencies
 
-On MacOS, the dependencies can be installed through [MacPorts](https://www.macports.org) with the following command:
-
-```
-sudo port install cmake doxygen
-```
-
-or through [Homebrew](https://brew.sh/) with the following command:
+Install the dependencies through [Homebrew](https://brew.sh/):
 
 ```
 brew install cmake doxygen
 ```
 
-On Linux, the dependencies can be installed through:
+or through [MacPorts](https://www.macports.org):
 
 ```
-sudo apt install cmake doxygen
+sudo port install cmake doxygen
 ```
 
 #### Build and install the library
@@ -52,7 +51,51 @@ Run this command to build and open the documentation:
 cmake --build build --target doc && open docs/html/index.html
 ```
 
-### Windows
+</details>
+
+<details>
+<summary><b>Linux</b></summary>
+
+_Last tested on Ubuntu 26.04._
+
+#### Install dependencies
+
+Install the dependencies with:
+
+```
+sudo apt install cmake doxygen
+```
+
+#### Build and install the library
+
+The library can be compiled and installed with the following commands:
+
+```
+cmake --preset default
+cmake --build build
+sudo cmake --install build
+```
+
+or in a single command:
+
+```
+cmake --preset default && cmake --build build && sudo cmake --install build
+```
+
+#### Build the documentation
+
+Run this command to build and open the documentation:
+
+```
+cmake --build build --target doc && xdg-open docs/html/index.html
+```
+
+</details>
+
+<details>
+<summary><b>Windows</b></summary>
+
+_Last tested on Windows 11._
 
 On Windows, the library is built natively with the GCC toolchain of [MSYS2](https://www.msys2.org).
 
@@ -91,6 +134,8 @@ Run this command to build the documentation, then open `docs/html/index.html` in
 ```
 cmake --build build --target doc
 ```
+
+</details>
 
 ## Examples
 
