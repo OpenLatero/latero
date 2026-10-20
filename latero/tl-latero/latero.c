@@ -2,6 +2,7 @@
 #ifdef _WIN32
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#include <mstcpip.h>
 #include <stddef.h>
 #include <math.h>
 #include <stdio.h>
@@ -28,6 +29,9 @@ _Static_assert(sizeof(((latero_t*)0)->udp_socket) == sizeof(SOCKET), "udp_socket
 _Static_assert(sizeof(((latero_t*)0)->si_server) == sizeof(struct sockaddr_in), "si_server must match struct sockaddr_in");
 _Static_assert(offsetof(latero_t, si_server) % _Alignof(struct sockaddr_in) == 0, "si_server must be aligned like struct sockaddr_in");
 #define LATERO_SERVER_ADDR(latero) ((struct sockaddr_in*)&(latero)->si_server)
+#ifndef SIO_UDP_CONNRESET
+#define SIO_UDP_CONNRESET _WSAIOW(IOC_VENDOR, 12)
+#endif
 #endif
 
 #define TIMEOUTS_ENABLED
@@ -140,12 +144,20 @@ int exchange_packet(latero_t* latero, latero_pkt_t* to_send, latero_pkt_t* respo
 #ifdef _WIN32
     numbytes = recvfrom( latero->udp_socket, latero->rspbuff, BUFLEN, 0,
                          (struct sockaddr*) &si_other, &slen );
+    /* the Latero's responses are longer than BUFLEN; Linux and macOS silently truncate them to
+       BUFLEN, which is all unpackPacket() needs, while Windows fills the buffer but reports an error */
+    if ( numbytes < 0 && WSAGetLastError() == WSAEMSGSIZE )
+      numbytes = BUFLEN;
 #else
     numbytes = recvfrom( latero->udp_socket, &latero->rspbuff, BUFLEN, 0,
                          (struct sockaddr*) &si_other, &slen );
 #endif
     if ( numbytes < 0 ) {
+#ifdef _WIN32
+      fprintf(stderr,"Error receiving response (WSA error %d)\n", WSAGetLastError());
+#else
       fprintf(stderr,"Error receiving response\n");
+#endif
       return(-1);
     }
 #ifdef TIMEOUTS_ENABLED
@@ -262,6 +274,14 @@ int latero_open( latero_t* latero, const char* str_ip_address )
   {
     WSACleanup();
     return(-1);
+  }
+  /* Windows reports an ICMP port unreachable for a sent datagram as WSAECONNRESET on the next
+     recvfrom(); Linux and macOS ignore it on unconnected UDP sockets, so do the same here */
+  {
+    BOOL report_connreset = FALSE;
+    DWORD bytes_returned = 0;
+    WSAIoctl( latero->udp_socket, SIO_UDP_CONNRESET, &report_connreset, sizeof(report_connreset),
+              NULL, 0, &bytes_returned, NULL, NULL );
   }
 #else
   if (latero->udp_socket == -1)
