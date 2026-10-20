@@ -1,6 +1,14 @@
 cmake_minimum_required (VERSION 3.21...3.31)
 project (latero)
 
+# on Windows, install into the MSYS2 environment of the compiler (e.g. C:/msys64/ucrt64) by default,
+# instead of C:/Program Files
+if (WIN32 AND CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+	get_filename_component(MSYS2_PREFIX "${CMAKE_CXX_COMPILER}" DIRECTORY)
+	get_filename_component(MSYS2_PREFIX "${MSYS2_PREFIX}" DIRECTORY)
+	set(CMAKE_INSTALL_PREFIX "${MSYS2_PREFIX}" CACHE PATH "Install path prefix" FORCE)
+endif()
+
 # process subdirectories
 add_subdirectory (latero)
 

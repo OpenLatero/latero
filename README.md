@@ -73,14 +73,16 @@ The library can be compiled and installed into the MSYS2 environment (no `sudo` 
 ```
 cmake --preset default
 cmake --build build
-cmake --install build --prefix /ucrt64
+cmake --install build
 ```
 
 or in a single command:
 
 ```
-cmake --preset default && cmake --build build && cmake --install build --prefix /ucrt64
+cmake --preset default && cmake --build build && cmake --install build
 ```
+
+The install prefix defaults to the MSYS2 environment of the compiler (e.g. `C:/msys64/ucrt64`).
 
 #### Build the documentation
 
