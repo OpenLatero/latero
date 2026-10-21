@@ -11,8 +11,6 @@ Expand the instructions for your platform.
 <details>
 <summary><b>macOS</b></summary>
 
-_Last tested on macOS 27.0._
-
 #### Install dependencies
 
 Install the dependencies through [Homebrew](https://brew.sh/):
@@ -56,8 +54,6 @@ cmake --build build --target doc && open docs/html/index.html
 <details>
 <summary><b>Linux</b></summary>
 
-_Last tested on Ubuntu 26.04._
-
 #### Install dependencies
 
 Install the dependencies with:
@@ -94,8 +90,6 @@ cmake --build build --target doc && xdg-open docs/html/index.html
 
 <details>
 <summary><b>Windows</b></summary>
-
-_Last tested on Windows 11._
 
 On Windows, the library is built natively with the GCC toolchain of [MSYS2](https://www.msys2.org).
 
