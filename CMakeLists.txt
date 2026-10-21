@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.21...3.31)
-project (latero VERSION 0.1.0)
+project (latero VERSION 0.2.0)
 
 # on Windows, install into the MSYS2 environment of the compiler (e.g. C:/msys64/ucrt64) by default,
 # instead of C:/Program Files
