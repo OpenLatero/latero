@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.21...3.31)
-project (latero)
+project (latero VERSION 0.1.0)
 
 # on Windows, install into the MSYS2 environment of the compiler (e.g. C:/msys64/ucrt64) by default,
 # instead of C:/Program Files
@@ -26,7 +26,13 @@ configure_package_config_file(
     ${CMAKE_CURRENT_BINARY_DIR}/lateroConfig.cmake
     INSTALL_DESTINATION lib/cmake/latero
 )
+# 0.x releases may break compatibility between minor versions, so only accept the same minor version
+write_basic_package_version_file(
+    ${CMAKE_CURRENT_BINARY_DIR}/lateroConfigVersion.cmake
+    COMPATIBILITY SameMinorVersion
+)
 install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/lateroConfig.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/lateroConfigVersion.cmake
     DESTINATION lib/cmake/latero
 )

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10...3.31)
 Project(latero-example-vibrate-loop)
 
-find_package(latero REQUIRED)
+find_package(latero 0.1 REQUIRED)
 
 set(SOURCES main.cpp)
 
